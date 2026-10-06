@@ -115,7 +115,7 @@ Copy and paste the commands below sequentially to prepare your Raspberry Pi, dow
 # Update and install git
 sudo apt update
 sudo apt install -y git
-sudo apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-doc libraspberrypi-bin
+#sudo apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-doc libraspberrypi-bin
 
 # Clone the setup script repository
 git clone https://github.com/grimmorium/ILI9488RPIScript_RaspberryPi_Zero.git
