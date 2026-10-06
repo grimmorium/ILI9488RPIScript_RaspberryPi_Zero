@@ -39,8 +39,8 @@ echo "Updating the system and installing dependencies..."
 #apt install -y cmake git build-essential nano libraspberrypi-dev raspi-config
 #apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-doc libraspberrypi-bin
 
-sudo apt-get update && apt upgrade -y
-sudo apt-get install -y cmake build-essential git libraspberrypi-dev
+#sudo apt-get update && apt upgrade -y
+sudo apt-get install -y cmake build-essential libraspberrypi-dev
 # Configure fbcp-ili9341
 echo "Downloading and configuring fbcp-ili9341..."
 cd ~
@@ -48,6 +48,7 @@ rm -r -f fbcp-ili9341
 git clone https://github.com/juj/fbcp-ili9341.git
 cd fbcp-ili9341
 
+echo "START cmake in:"
 pwd
 
 mkdir build
