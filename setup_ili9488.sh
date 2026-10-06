@@ -41,10 +41,11 @@ apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-do
 
 # Configure fbcp-ili9341
 echo "Downloading and configuring fbcp-ili9341..."
+rm -r -f fbcp-ili9341
 cd ~
-if [ ! -d "fbcp-ili9341" ]; then
-    git clone https://github.com/juj/fbcp-ili9341.git
-fi
+#if [ ! -d "fbcp-ili9341" ]; then
+git clone https://github.com/juj/fbcp-ili9341.git
+#fi
 cd fbcp-ili9341
 mkdir build
 cd build
