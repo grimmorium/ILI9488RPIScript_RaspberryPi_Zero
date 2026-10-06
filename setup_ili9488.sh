@@ -177,5 +177,9 @@ echo "Finalizing processes..."
 killall -9 fbcp-ili9341 2>/dev/null || true
 sync
 
+echo -e "\nDisplay auto run config."
+chmod +x /home/pi/start_display.sh
+(crontab -l 2>/dev/null; echo "@reboot sleep 10 && /home/pi/start_ekran.sh") | crontab -
+
 echo -e "\nSetup complete. The Raspberry Pi will now reboot."
 sudo reboot
