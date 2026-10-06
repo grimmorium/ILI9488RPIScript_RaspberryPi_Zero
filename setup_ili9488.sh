@@ -198,6 +198,7 @@ remove_duplicates "$CONFIG_FILE"
 
 echo -e "\nDisplay auto run config."
 chmod +x /home/pi/ILI9488RPIScript_RaspberryPi_Zero/start_display.sh
+sudo crontab -r
 (crontab -l 2>/dev/null; echo "@reboot sleep 10 && /home/pi/ILI9488RPIScript_RaspberryPi_Zero/start_display.sh") | crontab -
 
 echo -e "\nSetup complete. The Raspberry Pi will now reboot."
