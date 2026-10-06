@@ -50,7 +50,10 @@ cd fbcp-ili9341
 
 mkdir build
 cd build
-cmake -DILI9488=ON -DSPI_BUS_CLOCK_DIVISOR=40 -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 -DDISPLAY_INVERT_COLORS=ON -DDISPLAY_SWAP_BGR=ON -DSTATISTICS=0 ..
+#cmake -DILI9488=ON -DSPI_BUS_CLOCK_DIVISOR=40 -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 -DDISPLAY_INVERT_COLORS=ON -DDISPLAY_SWAP_BGR=ON -DSTATISTICS=0 ..
+cmake -DUSE_GPU=ON -DSPI_BUS_CLOCK_DIVISOR=40 \
+      -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 \
+      -DILI9488=ON -DDISPLAY_INVERT_COLORS=ON -DUSE_DMA_TRANSFERS=OFF -DDISPLAY_SWAP_BGR=ON -DSSTAT_STATISTICS=OFF ..
 make -j1
 
 #mkdir build
@@ -113,9 +116,9 @@ remove_duplicates() {
 }
 
 # Comment the line max_framebuffers=2 if it exists
-if grep -q "^max_framebuffers=2" "$CONFIG_FILE"; then
-    sed -i "s|^max_framebuffers=2|#max_framebuffers=2 (line commented for TFT ILI9488 installation on $(date +%m/%d/%Y))|" "$CONFIG_FILE"
-fi
+#if grep -q "^max_framebuffers=2" "$CONFIG_FILE"; then
+#    sed -i "s|^max_framebuffers=2|#max_framebuffers=2 (line commented for TFT ILI9488 installation on $(date +%m/%d/%Y))|" "$CONFIG_FILE"
+#fi
 
 # Comment the dtoverlay=vc4-kms-v3d line
 sed -i "s|^dtoverlay=vc4-kms-v3d|#dtoverlay=vc4-kms-v3d (line commented for TFT ILI9488 installation on $(date +%m/%d/%Y))|" "$CONFIG_FILE"
@@ -130,8 +133,8 @@ update_config "hdmi_force_hotplug" "1"
 update_config "hdmi_cvt" "480 320 60 1 0 0 0"
 update_config "hdmi_group" "2"
 update_config "hdmi_mode" "87"
-update_config "framebuffer_width" "480"
-update_config "framebuffer_height" "320"
+#update_config "framebuffer_width" "480"
+#update_config "framebuffer_height" "320"
 #update_config "dtoverlay" "fbtft_device,name=ili9488,rotate=0,fps=30,speed=16000000"
 #update_config "dtoverlay" "fbtft_device,name=piscreen,rotate=00,fps=30,speed=16000000"
 #update_config "dtparam" "dc_pin=22"
