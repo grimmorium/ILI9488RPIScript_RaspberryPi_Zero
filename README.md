@@ -121,7 +121,7 @@ sudo apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberry
 git clone https://github.com/grimmorium/ILI9488RPIScript_RaspberryPi_Zero.git
 
 # Navigate to the script's directory
-cd ILI9488RPIScript
+cd ILI9488RPIScript_RaspberryPi_Zero
 
 # Make the script executable and run it
 chmod +x setup_ili9488.sh
