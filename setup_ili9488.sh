@@ -179,7 +179,7 @@ sync
 
 echo -e "\nDisplay auto run config."
 chmod +x /home/pi/start_display.sh
-(crontab -l 2>/dev/null; echo "@reboot sleep 10 && /home/pi/start_ekran.sh") | crontab -
+(crontab -l 2>/dev/null; echo "@reboot sleep 10 && /home/pi/ILI9488RPIScript_RaspberryPi_Zero/start_ekran.sh") | crontab -
 
 echo -e "\nSetup complete. The Raspberry Pi will now reboot."
 sudo reboot
