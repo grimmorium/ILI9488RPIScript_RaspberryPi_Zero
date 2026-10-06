@@ -3,6 +3,7 @@
 
 Works only with Raspberry Pi OS Bookworm!!!
 This version is prepared for installing the SPI display on a RPi Zero / Zero W
+The user used to run the script has to be named "pi"
 
 This repository contains a script - `setup_ili9488.sh` - designed to simplify the setup of a 4" ILI9488 TFT screen commonly sold on AliExpress. This script configures the Raspberry Pi 4B to work seamlessly with the ILI9488 TFT display using the SPI interface.
 
