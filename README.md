@@ -34,8 +34,8 @@ Connect your ILI9488 TFT screen to the Raspberry Pi 4B as follows:
 | **VDD**     | Power (VCC)           | 5V or 3.3V           | Pin 2 or Pin 1 |
 | **GND**     | Ground                | Ground               | Pin 6          |
 | **CS**      | Chip Select (SPI)     | GPIO 8               | Pin 24         |
-| **RST**     | Reset                 | GPIO 17              | Pin 11         |
-| **D/C**     | Data/Command (SPI)    | GPIO 25              | Pin 22         |
+| **RST**     | Reset                 | GPIO 25              | Pin 22         |
+| **D/C**     | Data/Command (SPI)    | GPIO 24              | Pin 18         |
 | **SDI**     | Serial Data In (MOSI) | GPIO 10              | Pin 19         |
 | **SCK**     | Serial Clock (SPI)    | GPIO 11              | Pin 23         |
 | **BL**      | Backlight             | 5V or GPIO 27        | Pin 2 or Pin 13 |
@@ -63,7 +63,7 @@ sudo apt install -y git
 ### 2️⃣ Download the Setup Script
 Clone this repository to your Raspberry Pi:
 ```bash
-git clone https://github.com/grimmorium/ILI9488RPIScript.git
+git clone https://github.com/grimmorium/ILI9488RPIScript_RaspberryPi_Zero.git
 ```
 
 ### 3️⃣ Run the Setup Script
@@ -118,7 +118,7 @@ sudo apt install -y git
 sudo apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-doc libraspberrypi-bin
 
 # Clone the setup script repository
-git clone https://github.com/grimmorium/ILI9488RPIScript.git
+git clone https://github.com/grimmorium/ILI9488RPIScript_RaspberryPi_Zero.git
 
 # Navigate to the script's directory
 cd ILI9488RPIScript
