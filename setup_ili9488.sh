@@ -27,36 +27,46 @@ export LC_CTYPE="en_GB.UTF-8"
 export LANG="en_GB.UTF-8"
 
 # Enable SPI using raspi-config
-echo "Enabling SPI interface using raspi-config..."
-raspi-config nonint do_spi 0
+#echo "Enabling SPI interface using raspi-config..."
+#raspi-config nonint do_spi 0
 
 # Begin setup
 echo "Starting TFT setup..."
 
 # Update system and install dependencies
 echo "Updating the system and installing dependencies..."
-apt update && apt upgrade -y
-apt install -y cmake git build-essential nano libraspberrypi-dev raspi-config
-apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-doc libraspberrypi-bin
+#apt update && apt upgrade -y
+#apt install -y cmake git build-essential nano libraspberrypi-dev raspi-config
+#apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-doc libraspberrypi-bin
 
+sudo apt update && apt upgrade -y
+sudo apt install -y cmake build-essential git libraspberrypi-dev
 # Configure fbcp-ili9341
 echo "Downloading and configuring fbcp-ili9341..."
-rm -r -f fbcp-ili9341
 cd ~
-#if [ ! -d "fbcp-ili9341" ]; then
+rm -r -f fbcp-ili9341
 git clone https://github.com/juj/fbcp-ili9341.git
-#fi
 cd fbcp-ili9341
+
 mkdir build
 cd build
-rm -rf *
-cmake -DUSE_GPU=ON -DSPI_BUS_CLOCK_DIVISOR=40 \
-      -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 \
-      -DILI9488=ON -DDISPLAY_INVERT_COLORS=ON -DUSE_DMA_TRANSFERS=OFF -DDISPLAY_SWAP_BGR=ON -DSSTAT_STATISTICS=OFF ..
-make -j$(nproc)
-echo "INSTALL fbcp-ili9341"
-sudo install fbcp-ili9341 /usr/local/bin/
-echo "INSTALLED fbcp-ili9341"
+cmake -DILI9488=ON -DSPI_BUS_CLOCK_DIVISOR=40 -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 -DDISPLAY_INVERT_COLORS=ON -DDISPLAY_SWAP_BGR=ON -DSTATISTICS=0 ..
+make -j1
+
+#mkdir build
+#cd build
+#rm -rf *
+#cmake -DUSE_GPU=ON -DSPI_BUS_CLOCK_DIVISOR=40 \
+#      -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 \
+#      -DILI9488=ON -DDISPLAY_INVERT_COLORS=ON -DUSE_DMA_TRANSFERS=OFF -DDISPLAY_SWAP_BGR=ON -DSSTAT_STATISTICS=OFF ..
+#make -j$(nproc)
+#echo "INSTALL fbcp-ili9341"
+#sudo install fbcp-ili9341 /usr/local/bin/
+#echo "INSTALLED fbcp-ili9341"
+
+echo "Configuring permissions for fbcp-ili9341..."
+chmod +x /home/pi/fbcp-ili9341/build/fbcp-ili9341
+
 
 # Prompt before modifying config.txt
 echo
@@ -123,65 +133,65 @@ update_config "hdmi_mode" "87"
 update_config "framebuffer_width" "480"
 update_config "framebuffer_height" "320"
 #update_config "dtoverlay" "fbtft_device,name=ili9488,rotate=0,fps=30,speed=16000000"
-update_config "dtoverlay" "fbtft_device,name=piscreen,rotate=00,fps=30,speed=16000000"
+#update_config "dtoverlay" "fbtft_device,name=piscreen,rotate=00,fps=30,speed=16000000"
 #update_config "dtparam" "dc_pin=22"
 #update_config "dtparam" "reset_pin=11"
 #update_config "gpu_mem" "128"
-echo "# Utilized for TFT ILI9488 setup script by AdamoMD" >> "$CONFIG_FILE"
-echo "# https://github.com/adamomd/4inchILI9488RpiScript/" >> "$CONFIG_FILE"
-echo "# Feel free to send feedback and suggestions." >> "$CONFIG_FILE"
+#echo "# Utilized for TFT ILI9488 setup script by AdamoMD" >> "$CONFIG_FILE"
+#echo "# https://github.com/adamomd/4inchILI9488RpiScript/" >> "$CONFIG_FILE"
+#echo "# Feel free to send feedback and suggestions." >> "$CONFIG_FILE"
 
 # Remove duplicates in config.txt
 echo "Removing duplicate lines in config.txt..."
 remove_duplicates "$CONFIG_FILE"
 
 # Configure sudoers for fbcp-ili9341
-echo "Setting permissions in sudoers..."
-VISUDO_FILE="/etc/sudoers.d/fbcp-ili9341"
-if [ ! -f "$VISUDO_FILE" ]; then
-    echo "ALL ALL=(ALL) NOPASSWD: /usr/local/bin/fbcp-ili9341" > "$VISUDO_FILE"
-    chmod 440 "$VISUDO_FILE"
-fi
+#echo "Setting permissions in sudoers..."
+#VISUDO_FILE="/etc/sudoers.d/fbcp-ili9341"
+#if [ ! -f "$VISUDO_FILE" ]; then
+#    echo "ALL ALL=(ALL) NOPASSWD: /usr/local/bin/fbcp-ili9341" > "$VISUDO_FILE"
+#    chmod 440 "$VISUDO_FILE"
+#fi
 
 # Set binary permissions
-echo "Configuring permissions for fbcp-ili9341..."
-chmod u+s /usr/local/bin/fbcp-ili9341
+#echo "Configuring permissions for fbcp-ili9341..."
+#chmod u+s /usr/local/bin/fbcp-ili9341
 
 # Configure rc.local to start fbcp-ili9341
-echo "Configuring /etc/rc.local..."
-RC_LOCAL="/etc/rc.local"
-if [ ! -f "$RC_LOCAL" ]; then
-    cat <<EOT > "$RC_LOCAL"
-#!/bin/bash
+#echo "Configuring /etc/rc.local..."
+#RC_LOCAL="/etc/rc.local"
+#if [ ! -f "$RC_LOCAL" ]; then
+#    cat <<EOT > "$RC_LOCAL"
+##!/bin/bash
 # rc.local
 # This script is executed at the end of each multi-user runlevel.
 
 # Start fbcp-ili9341
-/usr/local/bin/fbcp-ili9341 >> /var/log/fbcp-ili9341.log 2>&1 &
+#/usr/local/bin/fbcp-ili9341 >> /var/log/fbcp-ili9341.log 2>&1 &
 
-exit 0
-EOT
-    chmod +x "$RC_LOCAL"
-else
-    if ! grep -q "fbcp-ili9341" "$RC_LOCAL"; then
-        sed -i '/exit 0/i \\n# Start fbcp-ili9341\n/usr/local/bin/fbcp-ili9341 >> /var/log/fbcp-ili9341.log 2>&1 &' "$RC_LOCAL"
-    fi
-fi
+#exit 0
+#EOT
+#    chmod +x "$RC_LOCAL"
+#else
+#    if ! grep -q "fbcp-ili9341" "$RC_LOCAL"; then
+#        sed -i '/exit 0/i \\n# Start fbcp-ili9341\n/usr/local/bin/fbcp-ili9341 >> /var/log/fbcp-ili9341.log 2>&1 &' "$RC_LOCAL"
+#    fi
+#fi
 
 # Remove duplicates in rc.local
-echo "Removing duplicate lines in rc.local..."
-remove_duplicates "$RC_LOCAL"
+#echo "Removing duplicate lines in rc.local..."
+#remove_duplicates "$RC_LOCAL"
 
 # Enable and start rc.local service
-echo "Enabling rc.local service..."
-sudo chmod +x /etc/rc.local
-sudo systemctl enable rc-local
-sudo systemctl start rc-local
+#echo "Enabling rc.local service..."
+#sudo chmod +x /etc/rc.local
+#sudo systemctl enable rc-local
+#sudo systemctl start rc-local
 
 # Finish and force reboot
-echo "Finalizing processes..."
-killall -9 fbcp-ili9341 2>/dev/null || true
-sync
+#echo "Finalizing processes..."
+#killall -9 fbcp-ili9341 2>/dev/null || true
+#sync
 
 echo -e "\nDisplay auto run config."
 chmod +x /home/pi/start_display.sh
