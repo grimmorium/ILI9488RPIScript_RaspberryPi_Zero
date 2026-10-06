@@ -109,15 +109,18 @@ sed -i "s|^dtoverlay=vc4-kms-v3d|#dtoverlay=vc4-kms-v3d (line commented for TFT 
 
 # Add required configuration lines
 echo "#Modifications for ILI9488 installation implemented by the script on $(date +%m/%d/%Y)" >> "$CONFIG_FILE"
-update_config "dtoverlay" "spi0-0cs"
-update_config "dtparam" "spi=on"
+
+#dtoverlay=piscreen,speed=16000000,rotate=90
+#update_config "dtoverlay" "spi0-0cs"
+#update_config "dtparam" "spi=on"
 update_config "hdmi_force_hotplug" "1"
 update_config "hdmi_cvt" "480 320 60 1 0 0 0"
 update_config "hdmi_group" "2"
 update_config "hdmi_mode" "87"
 update_config "framebuffer_width" "480"
 update_config "framebuffer_height" "320"
-update_config "dtoverlay" "fbtft_device,name=ili9488,rotate=0,fps=30,speed=16000000"
+#update_config "dtoverlay" "fbtft_device,name=ili9488,rotate=0,fps=30,speed=16000000"
+update_config "dtoverlay" "fbtft_device,name=piscreen,rotate=00,fps=30,speed=16000000"
 update_config "dtparam" "dc_pin=22"
 update_config "dtparam" "reset_pin=11"
 update_config "gpu_mem" "128"
