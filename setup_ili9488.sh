@@ -65,7 +65,7 @@ make -j1
 #echo "INSTALLED fbcp-ili9341"
 
 echo "Configuring permissions for fbcp-ili9341..."
-chmod +x /home/pi/fbcp-ili9341/build/fbcp-ili9341
+chmod +x /root/fbcp-ili9341/build/fbcp-ili9341
 
 
 # Prompt before modifying config.txt
