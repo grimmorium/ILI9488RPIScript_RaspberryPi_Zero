@@ -46,14 +46,16 @@ if [ ! -d "fbcp-ili9341" ]; then
     git clone https://github.com/juj/fbcp-ili9341.git
 fi
 cd fbcp-ili9341
-mkdir -p build
+mkdir build
 cd build
 rm -rf *
 cmake -DUSE_GPU=ON -DSPI_BUS_CLOCK_DIVISOR=40 \
       -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 \
       -DILI9488=ON -DDISPLAY_INVERT_COLORS=ON -DUSE_DMA_TRANSFERS=OFF -DDISPLAY_SWAP_BGR=ON -DSSTAT_STATISTICS=OFF ..
 make -j$(nproc)
+echo "INSTALL fbcp-ili9341"
 sudo install fbcp-ili9341 /usr/local/bin/
+echo "INSTALLED fbcp-ili9341"
 
 # Prompt before modifying config.txt
 echo
@@ -121,9 +123,9 @@ update_config "framebuffer_width" "480"
 update_config "framebuffer_height" "320"
 #update_config "dtoverlay" "fbtft_device,name=ili9488,rotate=0,fps=30,speed=16000000"
 update_config "dtoverlay" "fbtft_device,name=piscreen,rotate=00,fps=30,speed=16000000"
-update_config "dtparam" "dc_pin=22"
-update_config "dtparam" "reset_pin=11"
-update_config "gpu_mem" "128"
+#update_config "dtparam" "dc_pin=22"
+#update_config "dtparam" "reset_pin=11"
+#update_config "gpu_mem" "128"
 echo "# Utilized for TFT ILI9488 setup script by AdamoMD" >> "$CONFIG_FILE"
 echo "# https://github.com/adamomd/4inchILI9488RpiScript/" >> "$CONFIG_FILE"
 echo "# Feel free to send feedback and suggestions." >> "$CONFIG_FILE"
