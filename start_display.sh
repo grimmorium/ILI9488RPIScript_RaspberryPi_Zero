@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/pi/fbcp-ili9341/build
+cd /root/fbcp-ili9341/build
 
 # Próba 1 - wybudzenie ekranu (zimny start)
 ./fbcp-ili9341 &
