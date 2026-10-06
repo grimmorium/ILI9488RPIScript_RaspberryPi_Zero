@@ -8,17 +8,17 @@ fi
 
 # Introduction and confirmation
 clear
-echo "TFT 4\" Setup Script for ILI9488 on Raspberry Pi 4B"
-echo "Tested in December 2024 for TFT 4\" displays with dimensions 480x320."
-echo "This process involves modifying system files, downloading files, and installing dependencies."
-echo "These changes may affect the functionality of your Raspberry Pi."
-echo "At the end of the process, your Raspberry Pi will automatically reboot."
-echo
-read -p "Do you authorize this process and accept full responsibility for any changes? (Y/N): " user_input
-if [[ "$user_input" != "Y" && "$user_input" != "y" ]]; then
-    echo "No changes have been made. Process aborted."
-    exit 0
-fi
+#echo "TFT 4\" Setup Script for ILI9488 on Raspberry Pi 4B"
+#echo "Tested in December 2024 for TFT 4\" displays with dimensions 480x320."
+#echo "This process involves modifying system files, downloading files, and installing dependencies."
+#echo "These changes may affect the functionality of your Raspberry Pi."
+#echo "At the end of the process, your Raspberry Pi will automatically reboot."
+#echo
+#read -p "Do you authorize this process and accept full responsibility for any changes? (Y/N): " user_input
+#if [[ "$user_input" != "Y" && "$user_input" != "y" ]]; then
+#    echo "No changes have been made. Process aborted."
+#    exit 0
+#fi
 
 # Ensure locale settings
 export LANGUAGE="en_GB.UTF-8"
@@ -39,8 +39,8 @@ echo "Updating the system and installing dependencies..."
 #apt install -y cmake git build-essential nano libraspberrypi-dev raspi-config
 #apt-get install --reinstall libraspberrypi0 libraspberrypi-dev libraspberrypi-doc libraspberrypi-bin
 
-sudo apt update && apt upgrade -y
-sudo apt install -y cmake build-essential git libraspberrypi-dev
+sudo apt-get update && apt upgrade -y
+sudo apt-get install -y cmake build-essential git libraspberrypi-dev
 # Configure fbcp-ili9341
 echo "Downloading and configuring fbcp-ili9341..."
 cd ~
@@ -69,14 +69,14 @@ chmod +x /home/pi/fbcp-ili9341/build/fbcp-ili9341
 
 
 # Prompt before modifying config.txt
-echo
-echo "The script will now modify the Raspberry Pi configuration file (config.txt)."
-echo "Existing lines that are changed will be commented with a note."
-read -p "Do you accept these changes and wish to proceed? (Y/N): " config_input
-if [[ "$config_input" != "Y" && "$config_input" != "y" ]]; then
-    echo "No changes have been made to the configuration file. Process aborted."
-    exit 0
-fi
+#echo
+#echo "The script will now modify the Raspberry Pi configuration file (config.txt)."
+#echo "Existing lines that are changed will be commented with a note."
+#read -p "Do you accept these changes and wish to proceed? (Y/N): " config_input
+#if [[ "$config_input" != "Y" && "$config_input" != "y" ]]; then
+#    echo "No changes have been made to the configuration file. Process aborted."
+#    exit 0
+#fi
 
 # Define the configuration file path
 CONFIG_FILE="/boot/firmware/config.txt"
@@ -194,8 +194,8 @@ remove_duplicates "$CONFIG_FILE"
 #sync
 
 echo -e "\nDisplay auto run config."
-chmod +x /home/pi/start_display.sh
-(crontab -l 2>/dev/null; echo "@reboot sleep 10 && /home/pi/ILI9488RPIScript_RaspberryPi_Zero/start_ekran.sh") | crontab -
+chmod +x /home/pi/ILI9488RPIScript_RaspberryPi_Zero/start_display.sh
+(crontab -l 2>/dev/null; echo "@reboot sleep 10 && /home/pi/ILI9488RPIScript_RaspberryPi_Zero/start_display.sh") | crontab -
 
 echo -e "\nSetup complete. The Raspberry Pi will now reboot."
 sudo reboot
