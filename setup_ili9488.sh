@@ -48,6 +48,8 @@ rm -r -f fbcp-ili9341
 git clone https://github.com/juj/fbcp-ili9341.git
 cd fbcp-ili9341
 
+pwd
+
 mkdir build
 cd build
 #cmake -DILI9488=ON -DSPI_BUS_CLOCK_DIVISOR=40 -DGPIO_TFT_DATA_CONTROL=24 -DGPIO_TFT_RESET_PIN=25 -DDISPLAY_INVERT_COLORS=ON -DDISPLAY_SWAP_BGR=ON -DSTATISTICS=0 ..
