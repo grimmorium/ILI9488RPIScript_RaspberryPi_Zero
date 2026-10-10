@@ -113,7 +113,7 @@ run
 ```bash
 sudo raspi-config
 ```
-and enable SPI and I2C
+and enable I2C
 
 Copy and paste the commands below sequentially to prepare your Raspberry Pi, download the setup script, and execute it:
 
