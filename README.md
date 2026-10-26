@@ -113,7 +113,9 @@ run
 ```bash
 sudo raspi-config
 ```
-and enable I2C
+and enable I2C, SPI
+and disable loging in via UART 
+and enable hardware serial/UART
 
 Copy and paste the commands below sequentially to prepare your Raspberry Pi, download the setup script, and execute it:
 
